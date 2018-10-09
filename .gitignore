@@ -1,6 +1,10 @@
-.project
 .jtest/
 .parasoft
+.project
+.settings/
+.classpath
+.idea/
+.gradle/
 
 # All below configurations are copied from: https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore 
 # Covers JetBrains IDEs: IntelliJ

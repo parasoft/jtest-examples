@@ -1,0 +1,29 @@
+{
+    "scheme_version": "1.1",
+    "type":       "classpath_project",
+    "name":       "com.parasoft:demo",
+    "location":    "${JSON_DIR}",
+    "compilations":    [
+        {
+            "sourcepath": [
+      "${JSON_DIR}/src/main/java/"
+            ],
+			"binarypath": [],
+            "classpath":  [
+      "${JSON_DIR}/lib/junit-4.11.jar",
+      "${JSON_DIR}/lib/servlet-api.jar"
+            ],
+            "bootpath":   [
+      "${jvm_prop:java.home}/lib/rt.jar",
+      "${jvm_prop:java.home}/lib/resources.jar",
+      "${jvm_prop:java.home}/lib/jsse.jar",
+      "${jvm_prop:java.home}/lib/jce.jar",
+      "${jvm_prop:java.home}/lib/charsets.jar",
+      "${jvm_prop:java.home}/lib/jfr.jar"
+       ],
+            "encoding":   "UTF-8",
+            "sourcelevel": "1.7"
+        }
+    ],
+    "testoutcomes": []
+}   

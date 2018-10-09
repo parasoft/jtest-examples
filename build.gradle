@@ -1,0 +1,75 @@
+
+description = '<h3>Jtest demo project</h3><p>The project contains sample source code with various errors, and bad practice examples which can be detected by Jtest analysis.</p>'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = theGroup
+version = theVersion
+
+def jtestPluginPath = projectDir.absolutePath + '/../../integration/gradle/jtest.gradle'
+if(file(jtestPluginPath).exists()) {
+    apply from: jtestPluginPath
+
+    jtest {
+        // enforcing choosen configuration
+        // config = "builtin://Demo Configuration"
+        exclude = "path:**/test/**"
+    }
+} else {
+    logger.warn('The Jtest tasks cannot be executed from the command line. Please verify if the following file is available: \'../../integration/gradle/jtest.gradle\'')
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+compileJava.options.encoding = 'UTF-8'
+
+test{
+
+    // print short tests summary
+    afterSuite { desc, result ->
+        if (!desc.parent)
+            println("Test results: ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped")
+    }
+
+    // ignore test failures for demo purposes
+    ignoreFailures = true
+
+    // AccountDynamicTest.class is a part of AccountDynamicSuite.class and should not be launched as a separated test
+    exclude '**/nbank/AccountDynamicTest.class'
+    exclude '**/*Test*$*.class'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "./demo-repository"
+    }
+}
+
+jar {
+    archiveName = theName + '.jar'
+}
+
+dependencies {
+    compile 'javax.servlet:servlet-api:2.4'
+    compile 'org.powermock:powermock-module-junit4:2.0.0-beta.11'
+    compile 'org.powermock:powermock-api-mockito2:2.0.0-beta.11'
+    testCompile 'junit:junit:4.11'
+    testCompile 'pl.pragmatists:JUnitParams:1.1.1'
+}
+
+processResources {
+    from ('src/test/java') {
+        include '**/*.csv'
+    }
+}
+
