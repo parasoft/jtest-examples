@@ -6,6 +6,10 @@
 .idea/
 .gradle/
 
+build/
+**/*.swp
+
+
 # All below configurations are copied from: https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore 
 # Covers JetBrains IDEs: IntelliJ
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
