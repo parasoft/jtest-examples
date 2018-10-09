@@ -38,7 +38,10 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
-        url "./demo-repository"
+        url "https://dl.bintray.com/mockito/maven/"
+    }
+    maven {
+        url "https://dl.bintray.com/powermock/maven/"
     }
 }
 
