@@ -7,6 +7,18 @@ apply plugin: 'maven'
 group = theGroup
 version = theVersion
 
+def jtestInstallDir = '' 
+def jtestPluginPath = jtestInstallDir + '/integration/gradle/jtest.gradle'
+if(file(jtestPluginPath).exists()) {
+    apply from: jtestPluginPath
+
+    jtest {
+        exclude = "path:**/test/**"
+    }
+} else {
+    logger.warn('The Jtest tasks cannot be executed from the command line. Please verify if valiable \'jtestInstallDir\' is set correctly.')
+}
+
 sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 

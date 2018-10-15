@@ -21,6 +21,18 @@
         <finalName>Demo</finalName>
 
         <plugins>
+            <!-- Integration with jtest plugins
+            <plugin>
+                <groupId>com.parasoft.jtest</groupId>
+                <artifactId>jtest-maven-plugin</artifactId>
+                <version>1.2.15</version>
+            </plugin>
+            <plugin>
+                <groupId>com.parasoft.xtest.cbt</groupId>
+                <artifactId>cbt-maven-plugin</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </plugin>
+             -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
