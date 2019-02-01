@@ -17,7 +17,7 @@ public class CustomListRenderer extends DefaultListCellRenderer {
     private final RunnableStackMachine machineGUI = null;
 
     /**
-     * @param StackMachineGUI
+     * @param g StackMachineGUI
      */
     @Override
     public void paint(Graphics g) {

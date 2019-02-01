@@ -7,21 +7,22 @@ package examples.stackmachine;
 public class LifoStackMachine extends AbstractStackMachine {
 
     /**
-     * @see com.parasoft.example.AbstractStack#push(java.lang.String)
+     * Add an element to the end of the stack.
+     * @param value of the element to push in.
      */
     public void push(String value) {
         insertElementAt(value, 0);
     }
 
     /**
-     * @see com.parasoft.example.AbstractStack#pop()
+     * Retrieve an element from the stack.
      */
     public void pop() {
         removeElementAt(0);
     }
 
     /**
-     * @see com.parasoft.example.AbstractStackMachine#popInt()
+     * @see examples.stackmachine.AbstractStackMachine#popInt()
      */
     @Override
     protected int popInt() {
@@ -29,7 +30,7 @@ public class LifoStackMachine extends AbstractStackMachine {
     }
 
     /**
-     * @see com.parasoft.example.AbstractStackMachine#pushInt(int)
+     * @see examples.stackmachine.AbstractStackMachine#pushInt(int)
      */
     @Override
     protected void pushInt(int value) {
