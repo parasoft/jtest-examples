@@ -10,8 +10,8 @@ public class InefficientCollectionRemoval {
      * 
      * @param collection
      */
-    public void inefficientRemoval(Collection collection) {
-        Iterator iter = collection.iterator();
+    public void inefficientRemoval(Collection<?> collection) {
+        Iterator<?> iter = collection.iterator();
         while (iter.hasNext()) {
             Object element = iter.next();
             collection.remove(element);
@@ -23,8 +23,8 @@ public class InefficientCollectionRemoval {
      * 
      * @param collection
      */
-    public void effectiveRemoval(Collection collection) {
-        Iterator iter = collection.iterator();
+    public void effectiveRemoval(Collection<?> collection) {
+        Iterator<?> iter = collection.iterator();
         while (iter.hasNext()) {
             iter.remove();
         }

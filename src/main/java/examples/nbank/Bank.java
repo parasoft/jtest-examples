@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class Bank {
 
-    private Map _accounts = new HashMap();
+    private Map<String, Account> _accounts = new HashMap<String, Account>();
 
     private static LogAccountInfo _logger = new LogAccountInfo();
 
@@ -39,15 +39,12 @@ public class Bank {
         return true;
     }
 
-    public void closeAccounts(List list) {
+    public void closeAccounts(List<Account> list) {
         int size = (list != null) ? list.size() : 0;
         for (int i = 0; i < size; i++) {
-            Object element = list.get(i);
-            if (!(element instanceof Account))
-                continue;
-            Account account = (Account) element;
+            Account account = list.get(i);
             _logger.log(account);
-            _accounts.remove(account);
+            _accounts.remove(account.getID());
             i = size;
         }
     }

@@ -11,8 +11,8 @@ abstract class IncorrectIteratorUsage {
      * @param collection
      * @param tp
      */
-    public void removeAllElementsIncorrect(HashSet collection, Class tp) {
-        Iterator iter = collection.iterator();
+    public void removeAllElementsIncorrect(HashSet<?> collection, Class<?> tp) {
+        Iterator<?> iter = collection.iterator();
         while (iter.hasNext()) {
             Object obj = iter.next();
             if (tp.isAssignableFrom(obj.getClass())) {
@@ -28,8 +28,8 @@ abstract class IncorrectIteratorUsage {
      * @param collection
      * @param tp
      */
-    public void removeAllElementsCorrect(HashSet collection, Class tp) {
-        Iterator iter = collection.iterator();
+    public void removeAllElementsCorrect(HashSet<?> collection, Class<?> tp) {
+        Iterator<?> iter = collection.iterator();
         while (iter.hasNext()) {
             Object obj = iter.next();
             if (tp.isAssignableFrom(obj.getClass())) {
