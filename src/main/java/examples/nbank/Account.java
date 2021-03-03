@@ -1,5 +1,6 @@
 package examples.nbank;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,16 @@ public class Account {
             return STATUS_GOLD;
         } else {
             return STATUS_PLATINUM;
+        }
+    }
+
+    public boolean reportToCreditAgency(ICreditAgency agency)
+        throws ConnectionException
+    {
+        try {
+            return agency.report(this);
+        } catch (IOException e) {
+            throw new ConnectionException(e.getMessage());
         }
     }
 

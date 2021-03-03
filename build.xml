@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="com.parasoft:demo" default="build" xmlns:jtest="antlib:com.parasoft.jtest.plugin.ant">
+    
+	<description>Builds Demo</description>
+    
+	<property name="src.dir" value="./src/main/java" />
+	<property name="resources.dir" value="./src/main/resources" />
+    <property name="tests.dir" value="./src/test/java" />
+    <property name="target.dir" value="ant-target" />
+    <property name="target.dir.tests" value="ant-target-tests" />
+    <property name="target.name" value="demo.jar" />
+    <property name="reports.tests" value="reports-tests" />
+
+    <target name="clean">
+        <delete dir="${target.dir}" failonerror="false" />
+        <delete dir="${target.dir.tests}" failonerror="false" />
+        <delete dir="${reports.tests}" failonerror="false" />
+        <delete dir="parasoft" failonerror="false" />
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${target.dir}" />
+        <javac srcdir="${src.dir}" destdir="${target.dir}" fork="true" source="1.8" target="1.8" debug="true">
+            <classpath>
+                <fileset dir="lib">
+                    <include name="**/*.jar" />
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+    
+    <target name="compile-tests" depends="compile">
+        <mkdir dir="${target.dir.tests}" />
+        <javac srcdir="${tests.dir}" destdir="${target.dir.tests}" fork="true" source="1.8" target="1.8" debug="true">
+            <classpath>
+                <fileset dir="lib">
+                    <include name="**/*.jar" />
+                </fileset>
+                <pathelement path="${target.dir}"/>
+            </classpath>
+        </javac>
+    	<copy todir="${target.dir.tests}">
+    		<fileset dir="${tests.dir}">
+    	    	<include name="**/*.csv"/>
+    	  	</fileset>
+    	</copy>
+    </target>
+
+    <target name="jar" depends="compile">
+        <copy todir="${target.dir}">
+            <fileset dir=".">
+                <include name="lib/**" />
+            </fileset>
+            <fileset dir="${resources.dir}">
+                <include name="**/img/**" />
+            </fileset>
+        </copy>
+        <jar destfile="${target.name}" basedir="${target.dir}" />
+    </target>
+
+    <!-- Runs junit task with classpath. -->
+    <target name="tests" depends="jar,compile-tests">
+        <mkdir dir="${reports.tests}" />
+        <jtest:agent>
+            <!-- Following attributes will be set: haltonerror="no" haltonfailure="no" fork="yes"
+        	     If agent task skipped nested task will be executed without any config changes. -->
+            <junit printsummary="yes" showoutput="true">
+                <!-- Formatter element will be set as following: <formatter type="xml"/> 
+            	     If different formatter type has been set it will get overridden.
+            	     If formatter has been configured by classname it will be left as it is. -->
+    	        <classpath>
+                    <fileset dir="lib">
+                        <include name="**/*.jar" />
+                    </fileset>
+                    <pathelement path="${target.dir}"/>
+                    <pathelement path="${target.dir.tests}"/>
+                </classpath>
+                <batchtest todir="${reports.tests}">
+                    <fileset dir="${tests.dir}">
+                    	<include name="**/*Test*.java"/>
+                        <include name="**/Test*.java"/>
+                        <include name="**/*Test.java"/>
+                        <include name="**/*TestCase.java"/>
+                        <include name="**/*Suite.java"/>
+                        <exclude name="**/nbank/AccountDynamicTest.java"/>
+                    </fileset>
+                </batchtest>
+            </junit>
+            <coverage>
+                <includes>
+                    <fileset dir="${target.dir}" />
+                	<!-- alternatively
+                	<include>dbc/**</include>
+                	<include>examples/**</include>
+                	-->
+                </includes>
+                <testIncludes>
+                    <fileset dir="${target.dir.tests}" />
+                    <!-- alternatively
+                    <include name="**/Test*.class"/>
+                    <include name="**/*Test.class"/>
+                    <include name="**/*TestCase.class"/>
+                    <include name="**/*Suite.class"/>
+                    -->
+                </testIncludes>
+           </coverage>
+        </jtest:agent>
+    </target>
+	
+	<target name="build" depends="clean,jar,tests" />
+	
+</project>

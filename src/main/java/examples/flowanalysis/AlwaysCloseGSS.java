@@ -7,9 +7,8 @@ public class AlwaysCloseGSS {
 
     public void process(byte[] tokens) {
         try {
-            GSSContext context = GSSManager.getInstance().createContext(tokens);
             byte[] inputBuff = new byte[256];
-            context.initSecContext(inputBuff, 0, 256);
+            GSSManager.getInstance().createContext(tokens).initSecContext(inputBuff, 0, 256);
             // ...
         } catch (Exception ioe) {
             System.out.println("Exception occured: " + ioe);

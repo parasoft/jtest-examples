@@ -16,6 +16,32 @@ public class CharacterReader {
         }
     }
 
+    public String readString(Reader reader) throws IOException {
+        StringBuffer buff = new StringBuffer();
+        try {
+            while (true) {
+                char[] arr = new char[32];
+                int count = reader.read(arr);
+                if (count > 0) {
+                    buff.append(arr, 0, count);
+                } else {
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            if (buff.length() > 0) {
+                return buff.toString();
+            } else {
+                throw e;
+            }
+        }
+
+        if (buff.length() == 0) {
+            return null;
+        }
+        return buff.toString();
+    }
+    
     private CharBuffer prepareCharBuffer(Reader reader) throws IOException {
         class ReadableHandler {
 

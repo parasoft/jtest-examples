@@ -10,19 +10,18 @@
             ],
 			"binarypath": [],
             "classpath":  [
-      "${JSON_DIR}/lib/junit-4.11.jar",
-      "${JSON_DIR}/lib/servlet-api.jar"
+      "${JSON_DIR}/lib/junit-4.13.jar",
+      "${JSON_DIR}/lib/servlet-api-2.4.jar"
             ],
             "bootpath":   [
       "${jvm_prop:java.home}/lib/rt.jar",
       "${jvm_prop:java.home}/lib/resources.jar",
       "${jvm_prop:java.home}/lib/jsse.jar",
       "${jvm_prop:java.home}/lib/jce.jar",
-      "${jvm_prop:java.home}/lib/charsets.jar",
-      "${jvm_prop:java.home}/lib/jfr.jar"
+      "${jvm_prop:java.home}/lib/charsets.jar"
        ],
             "encoding":   "UTF-8",
-            "sourcelevel": "1.7"
+            "sourcelevel": "1.8"
         }
     ],
     "testoutcomes": []

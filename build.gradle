@@ -7,20 +7,15 @@ apply plugin: 'maven'
 group = theGroup
 version = theVersion
 
-def jtestInstallDir = '' 
-def jtestPluginPath = jtestInstallDir + '/integration/gradle/jtest.gradle'
+def jtestPluginPath = projectDir.absolutePath + '/../../integration/gradle/jtest.gradle'
 if(file(jtestPluginPath).exists()) {
     apply from: jtestPluginPath
-
-    jtest {
-        exclude = "path:**/test/**"
-    }
 } else {
-    logger.warn('The Jtest tasks cannot be executed from the command line. Please verify if valiable \'jtestInstallDir\' is set correctly.')
+    logger.warn('The Jtest tasks cannot be executed from the command line. Please verify if the following file is available: \'../../integration/gradle/jtest.gradle\'')
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 compileJava.options.encoding = 'UTF-8'
 
@@ -31,6 +26,7 @@ test{
         if (!desc.parent)
             println("Test results: ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped")
     }
+    useJUnitPlatform()
 
     // ignore test failures for demo purposes
     ignoreFailures = true
@@ -49,12 +45,6 @@ buildscript {
 repositories {
     mavenLocal()
     mavenCentral()
-    maven {
-        url "https://dl.bintray.com/mockito/maven/"
-    }
-    maven {
-        url "https://dl.bintray.com/powermock/maven/"
-    }
 }
 
 jar {
@@ -63,14 +53,32 @@ jar {
 
 dependencies {
     compile 'javax.servlet:servlet-api:2.4'
-    compile 'org.powermock:powermock-api-support:2.0.0-beta.11'
-    compile 'org.powermock:powermock-core:2.0.0-beta.11'
-    testCompile 'org.mockito:mockito-core:2.23.0'
-    testCompile 'org.powermock:powermock-module-junit4:2.0.0-beta.11'
-    testCompile 'org.powermock:powermock-module-junit4-common:2.0.0-beta.11'
-    testCompile 'org.powermock:powermock-api-mockito2:2.0.0-beta.11'
-    testCompile 'junit:junit:4.11'
-    testCompile 'pl.pragmatists:JUnitParams:1.1.1'}
+    compile 'org.apiguardian:apiguardian-api:1.1.0'
+    compile 'org.javassist:javassist:3.24.0-GA'
+    compile 'net.bytebuddy:byte-buddy:1.10.0'
+    testCompile 'net.bytebuddy:byte-buddy-agent:1.10.0'
+    testCompile 'org.hamcrest:hamcrest:2.1'
+    
+    compile 'org.opentest4j:opentest4j:1.2.0'
+    testCompile 'org.objenesis:objenesis:3.0.1'
+    testCompile 'junit:junit:4.13'
+
+    testCompile     'org.junit.jupiter:junit-jupiter:5.5.2'
+    testCompile     'org.junit.jupiter:junit-jupiter-migrationsupport:5.5.2'
+    testCompile     'org.junit.vintage:junit-vintage-engine:5.5.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.5.2'
+
+    testCompile 'pl.pragmatists:JUnitParams:1.1.1'
+    testCompile 'org.mockito:mockito-core:2.28.2'
+    testCompile 'org.mockito:mockito-junit-jupiter:2.28.2'
+
+    compile 'org.powermock:powermock-api-support:2.0.2'
+    compile 'org.powermock:powermock-core:2.0.2'
+    testCompile 'org.powermock:powermock-api-mockito2:2.0.2'
+    testCompile 'org.powermock:powermock-module-junit4:2.0.2'
+    testCompile 'org.powermock:powermock-module-junit4-common:2.0.2'
+    testCompile 'org.powermock:powermock-reflect:2.0.2'
+}
 
 processResources {
     from ('src/test/java') {

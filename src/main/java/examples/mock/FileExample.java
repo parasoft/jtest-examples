@@ -1,6 +1,7 @@
 package examples.mock;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Used to show how to define user defined stubs for File objects.
@@ -20,5 +21,15 @@ public class FileExample {
         tmp.append(file.compareTo(new File("XXX")));
         tmp.append(':');
         return tmp.toString();
+    }
+    
+    public static boolean isOversize(String path, long limit)
+    {
+        try {
+            return limit - ConstructorExample.getFileLength(path) > 0;
+        } catch (IOException e) {
+            System.out.println("an I/O error occurs");
+            return false;
+        }
     }
 }
